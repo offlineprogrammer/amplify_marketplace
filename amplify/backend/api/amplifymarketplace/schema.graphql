@@ -1,0 +1,16 @@
+
+
+
+
+type Profile @model @auth(rules: [
+      { allow: private, provider: iam }
+      { allow: owner, operations: [read, update, create] }
+    ]) {
+  id: ID!
+  email: String!
+  communicationPref: CommunicationTypes
+  owner: String! 
+}
+
+enum CommunicationTypes { Email, SMS, None }
+

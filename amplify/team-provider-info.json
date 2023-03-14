@@ -9,11 +9,21 @@
       "UnauthRoleName": "amplify-amplifymarketplace-dev-154451-unauthRole",
       "StackName": "amplify-amplifymarketplace-dev-154451",
       "StackId": "arn:aws:cloudformation:us-east-1:279012124572:stack/amplify-amplifymarketplace-dev-154451/ac76ebe0-c1f0-11ed-a677-129b0a0656e5",
-      "AmplifyAppId": "d227s70j95bjyu"
+      "AmplifyAppId": "d227s70j95bjyu",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-amplifymarketplace-dev-154451-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "amplifymarketplacec37087a9": {}
+      },
+      "api": {
+        "amplifymarketplace": {}
+      },
+      "function": {
+        "amplifymarketplacec37087a9PostConfirmation": {
+          "deploymentBucketName": "amplify-amplifymarketplace-dev-154451-deployment",
+          "s3Key": "amplify-builds/amplifymarketplacec37087a9PostConfirmation-457062632b456a4e7a2f-build.zip"
+        }
       }
     }
   }

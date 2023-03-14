@@ -50,7 +50,7 @@ packages:
     source: hosted
     version: "0.6.12"
   amplify_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: amplify_flutter
       sha256: "832ead9bbc8ef392c0d27ccea81e2bd977871115d013b155015533bea5f99ca8"
