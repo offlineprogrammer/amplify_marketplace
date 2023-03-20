@@ -20,7 +20,43 @@ class ProfilePage extends ConsumerWidget {
       body: profileValue.when(
         loading: () => const CircularProgressIndicator(),
         error: (err, stack) => Text('Error: $err'),
-        data: (profile) => Text(profile.toString()),
+        data: (profile) => ListView(
+          children: [
+            Card(
+              child: ListTile(
+                leading: const Icon(
+                  Icons.verified_user,
+                  size: 50,
+                ),
+                title: Text(
+                  profile!.email,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+            ),
+            const ListTile(
+              dense: true,
+              tileColor: Colors.grey,
+              visualDensity: VisualDensity(vertical: -4),
+            ),
+            Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      //editProfile(context, profile);
+                    },
+                    child: const Text('Edit'),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

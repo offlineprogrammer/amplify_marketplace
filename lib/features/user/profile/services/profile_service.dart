@@ -18,6 +18,7 @@ class ProfileService {
       final response = await Amplify.API.query(request: request).response;
 
       debugPrint(response.data?.items.toString());
+      debugPrint(response.data?.items.first!.email.toString());
       return response.data?.items.first;
     } on ApiException catch (e) {
       print('Query failed: $e');
