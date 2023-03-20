@@ -8,8 +8,8 @@ const GRAPHQL_ENDPOINT = process.env.API_AMPLIFYMARKETPLACE_GRAPHQLAPIENDPOINTOU
 const AWS_REGION = process.env.AWS_REGION || 'us-east-1';
 
 const query = /* GraphQL */ `
-  mutation createProfile($email: String!,$owner: String!) {
-    createProfile(input: {
+  mutation createUser($email: String!,$owner: String!) {
+    createUser(input: {
       email: $email,
       owner: $owner,
       
