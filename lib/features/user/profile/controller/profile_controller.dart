@@ -19,4 +19,8 @@ class ProfileController {
   Future<User?> getUserProfile() async {
     return await ref.read(profileRepositoryProvider).get();
   }
+
+  Future<void> updateUser(User updatedUser) async {
+    await ref.read(profileRepositoryProvider).update(updatedUser);
+  }
 }

@@ -31,8 +31,7 @@ class User extends Model {
   static const classType = const _UserModelType();
   final String id;
   final String? _email;
-  final CommunicationTypes? _communicationPref;
-  final List<UserFavorites>? _favorites;
+  final List<MarketPlaceDepartments>? _favoritedepartments;
   final String? _owner;
   final TemporalDateTime? _updatedAt;
   final TemporalDateTime? _createdAt;
@@ -63,12 +62,8 @@ class User extends Model {
     }
   }
   
-  CommunicationTypes? get communicationPref {
-    return _communicationPref;
-  }
-  
-  List<UserFavorites>? get favorites {
-    return _favorites;
+  List<MarketPlaceDepartments>? get favoritedepartments {
+    return _favoritedepartments;
   }
   
   String get owner {
@@ -101,14 +96,13 @@ class User extends Model {
     return _createdAt;
   }
   
-  const User._internal({required this.id, required email, communicationPref, favorites, required owner, required updatedAt, createdAt}): _email = email, _communicationPref = communicationPref, _favorites = favorites, _owner = owner, _updatedAt = updatedAt, _createdAt = createdAt;
+  const User._internal({required this.id, required email, favoritedepartments, required owner, required updatedAt, createdAt}): _email = email, _favoritedepartments = favoritedepartments, _owner = owner, _updatedAt = updatedAt, _createdAt = createdAt;
   
-  factory User({String? id, required String email, CommunicationTypes? communicationPref, List<UserFavorites>? favorites, required String owner, required TemporalDateTime updatedAt}) {
+  factory User({String? id, required String email, List<MarketPlaceDepartments>? favoritedepartments, required String owner, required TemporalDateTime updatedAt}) {
     return User._internal(
       id: id == null ? UUID.getUUID() : id,
       email: email,
-      communicationPref: communicationPref,
-      favorites: favorites != null ? List<UserFavorites>.unmodifiable(favorites) : favorites,
+      favoritedepartments: favoritedepartments != null ? List<MarketPlaceDepartments>.unmodifiable(favoritedepartments) : favoritedepartments,
       owner: owner,
       updatedAt: updatedAt);
   }
@@ -123,8 +117,7 @@ class User extends Model {
     return other is User &&
       id == other.id &&
       _email == other._email &&
-      _communicationPref == other._communicationPref &&
-      DeepCollectionEquality().equals(_favorites, other._favorites) &&
+      DeepCollectionEquality().equals(_favoritedepartments, other._favoritedepartments) &&
       _owner == other._owner &&
       _updatedAt == other._updatedAt;
   }
@@ -139,7 +132,7 @@ class User extends Model {
     buffer.write("User {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("email=" + "$_email" + ", ");
-    buffer.write("communicationPref=" + (_communicationPref != null ? enumToString(_communicationPref)! : "null") + ", ");
+    buffer.write("favoritedepartments=" + (_favoritedepartments != null ? _favoritedepartments!.map((e) => enumToString(e)).toString() : "null") + ", ");
     buffer.write("owner=" + "$_owner" + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null"));
@@ -148,12 +141,11 @@ class User extends Model {
     return buffer.toString();
   }
   
-  User copyWith({String? email, CommunicationTypes? communicationPref, List<UserFavorites>? favorites, String? owner, TemporalDateTime? updatedAt}) {
+  User copyWith({String? email, List<MarketPlaceDepartments>? favoritedepartments, String? owner, TemporalDateTime? updatedAt}) {
     return User._internal(
       id: id,
       email: email ?? this.email,
-      communicationPref: communicationPref ?? this.communicationPref,
-      favorites: favorites ?? this.favorites,
+      favoritedepartments: favoritedepartments ?? this.favoritedepartments,
       owner: owner ?? this.owner,
       updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -161,11 +153,9 @@ class User extends Model {
   User.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _email = json['email'],
-      _communicationPref = enumFromString<CommunicationTypes>(json['communicationPref'], CommunicationTypes.values),
-      _favorites = json['favorites'] is List
-        ? (json['favorites'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => UserFavorites.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+      _favoritedepartments = json['favoritedepartments'] is List
+        ? (json['favoritedepartments'] as List)
+          .map((e) => enumFromString<MarketPlaceDepartments>(e, MarketPlaceDepartments.values)!)
           .toList()
         : null,
       _owner = json['owner'],
@@ -173,20 +163,17 @@ class User extends Model {
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'email': _email, 'communicationPref': enumToString(_communicationPref), 'favorites': _favorites?.map((UserFavorites? e) => e?.toJson()).toList(), 'owner': _owner, 'updatedAt': _updatedAt?.format(), 'createdAt': _createdAt?.format()
+    'id': id, 'email': _email, 'favoritedepartments': _favoritedepartments?.map((e) => enumToString(e)).toList(), 'owner': _owner, 'updatedAt': _updatedAt?.format(), 'createdAt': _createdAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'email': _email, 'communicationPref': _communicationPref, 'favorites': _favorites, 'owner': _owner, 'updatedAt': _updatedAt, 'createdAt': _createdAt
+    'id': id, 'email': _email, 'favoritedepartments': _favoritedepartments, 'owner': _owner, 'updatedAt': _updatedAt, 'createdAt': _createdAt
   };
 
   static final QueryModelIdentifier<UserModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<UserModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField EMAIL = QueryField(fieldName: "email");
-  static final QueryField COMMUNICATIONPREF = QueryField(fieldName: "communicationPref");
-  static final QueryField FAVORITES = QueryField(
-    fieldName: "favorites",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'UserFavorites'));
+  static final QueryField FAVORITEDEPARTMENTS = QueryField(fieldName: "favoritedepartments");
   static final QueryField OWNER = QueryField(fieldName: "owner");
   static final QueryField UPDATEDAT = QueryField(fieldName: "updatedAt");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
@@ -194,14 +181,6 @@ class User extends Model {
     modelSchemaDefinition.pluralName = "Users";
     
     modelSchemaDefinition.authRules = [
-      AuthRule(
-        authStrategy: AuthStrategy.PUBLIC,
-        operations: [
-          ModelOperation.CREATE,
-          ModelOperation.UPDATE,
-          ModelOperation.DELETE,
-          ModelOperation.READ
-        ]),
       AuthRule(
         authStrategy: AuthStrategy.PRIVATE,
         provider: AuthRuleProvider.IAM,
@@ -232,16 +211,10 @@ class User extends Model {
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: User.COMMUNICATIONPREF,
+      key: User.FAVORITEDEPARTMENTS,
       isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: User.FAVORITES,
-      isRequired: false,
-      ofModelName: 'UserFavorites',
-      associatedKey: UserFavorites.USER
+      isArray: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.enumeration))
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(

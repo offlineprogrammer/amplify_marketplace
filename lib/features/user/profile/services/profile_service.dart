@@ -24,4 +24,17 @@ class ProfileService {
       print('Query failed: $e');
     }
   }
+
+  Future<void> updateUser(User updatedUser) async {
+    try {
+      print(updatedUser);
+      final request = ModelMutations.update(updatedUser);
+      print(request);
+      final response = await Amplify.API.mutate(request: request).response;
+
+      print(response);
+    } catch (e) {
+      print('Query failed: $e');
+    }
+  }
 }

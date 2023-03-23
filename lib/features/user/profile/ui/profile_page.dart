@@ -1,4 +1,6 @@
 import 'package:amplify_marketplace/features/user/profile/controller/profile_controller.dart';
+import 'package:amplify_marketplace/features/user/profile/ui/edit_favorites_bottomsheet.dart';
+import 'package:amplify_marketplace/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +9,19 @@ class ProfilePage extends ConsumerWidget {
     super.key,
   });
 
+  void editProfile(BuildContext context, User profile) async {
+    await showModalBottomSheet<void>(
+      isScrollControlled: true,
+      elevation: 5,
+      context: context,
+      builder: (BuildContext context) {
+        return EditFavoritesBottomSheet(
+          profile: profile,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileValue = ref.watch(profileControllerFutureProvider);
@@ -14,7 +29,7 @@ class ProfilePage extends ConsumerWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Amplify Trips Planner',
+          'Amplify e-commerce',
         ),
       ),
       body: profileValue.when(
@@ -48,9 +63,9 @@ class ProfilePage extends ConsumerWidget {
                       textStyle: const TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
-                      //editProfile(context, profile);
+                      editProfile(context, profile);
                     },
-                    child: const Text('Edit'),
+                    child: const Text('Favorites'),
                   ),
                 ],
               ),

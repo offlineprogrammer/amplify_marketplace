@@ -12,6 +12,7 @@ const query = /* GraphQL */ `
     createUser(input: {
       email: $email,
       owner: $owner,
+      favoritedepartments: [],
       
     }) {
       email

@@ -15,4 +15,8 @@ class ProfileRepository {
   Future<User?> get() async {
     return await profileDatastoreService.getProfile();
   }
+
+  Future<void> update(User updatedUser) async {
+    await profileDatastoreService.updateUser(updatedUser);
+  }
 }
