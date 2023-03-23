@@ -17,11 +17,9 @@ class ProfileService {
       final request = ModelQueries.list(User.classType);
       final response = await Amplify.API.query(request: request).response;
 
-      debugPrint(response.data?.items.toString());
-      debugPrint(response.data?.items.first!.email.toString());
       return response.data?.items.first;
     } on ApiException catch (e) {
-      print('Query failed: $e');
+      debugPrint('Query failed: $e');
     }
   }
 
@@ -31,7 +29,7 @@ class ProfileService {
 
       await Amplify.API.mutate(request: request).response;
     } catch (e) {
-      print('Query failed: $e');
+      debugPrint('Query failed: $e');
     }
   }
 }

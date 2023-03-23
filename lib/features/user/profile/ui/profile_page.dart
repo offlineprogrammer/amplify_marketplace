@@ -1,5 +1,6 @@
 import 'package:amplify_marketplace/features/user/profile/controller/profile_controller.dart';
 import 'package:amplify_marketplace/features/user/profile/ui/edit_favorites_bottomsheet.dart';
+import 'package:amplify_marketplace/features/user/profile/ui/favorite_department_chip.dart';
 
 import 'package:amplify_marketplace/models/ModelProvider.dart';
 
@@ -28,7 +29,8 @@ class ProfilePage extends ConsumerWidget {
       favoritedepartments: favoritedepartments,
     );
 
-    ref.read(profileControllerProvider).updateUser(updatedProfile);
+    await ref.read(profileControllerProvider).updateUser(updatedProfile);
+    ref.refresh(profileControllerFutureProvider);
   }
 
   @override
@@ -78,7 +80,17 @@ class ProfilePage extends ConsumerWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: <Widget>[
+                for (var department in profile.favoritedepartments ?? [])
+                  FavoriteDepartmentChip(
+                    marketPlaceDepartment: department,
+                  ),
+              ],
+            ),
           ],
         ),
       ),
