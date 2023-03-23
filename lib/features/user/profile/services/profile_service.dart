@@ -27,12 +27,9 @@ class ProfileService {
 
   Future<void> updateUser(User updatedUser) async {
     try {
-      print(updatedUser);
       final request = ModelMutations.update(updatedUser);
-      print(request);
-      final response = await Amplify.API.mutate(request: request).response;
 
-      print(response);
+      await Amplify.API.mutate(request: request).response;
     } catch (e) {
       print('Query failed: $e');
     }

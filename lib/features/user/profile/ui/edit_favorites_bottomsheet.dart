@@ -1,23 +1,25 @@
-import 'package:amplify_marketplace/features/user/profile/controller/profile_controller.dart';
 import 'package:amplify_marketplace/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EditFavoritesBottomSheet extends ConsumerWidget {
-  EditFavoritesBottomSheet({
-    required this.profile,
+class EditFavoritesBottomSheet extends StatefulWidget {
+  const EditFavoritesBottomSheet({
+    required this.favoritedepartments,
     super.key,
   });
 
-  final User profile;
+  final List<MarketPlaceDepartments>? favoritedepartments;
 
+  @override
+  State<EditFavoritesBottomSheet> createState() =>
+      _EditFavoritesBottomSheetState();
+}
+
+class _EditFavoritesBottomSheetState extends State<EditFavoritesBottomSheet> {
   final formGlobalKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final List<MarketPlaceDepartments>? favoritedepartments =
-        profile.favoritedepartments;
-    print(favoritedepartments.toString());
+  @override
+  Widget build(BuildContext context) {
     return Form(
       key: formGlobalKey,
       child: Container(
@@ -35,15 +37,16 @@ class EditFavoritesBottomSheet extends ConsumerWidget {
               CheckboxListTile(
                 title: Text(department.name),
 
-                value: favoritedepartments!.contains(department),
+                value: widget.favoritedepartments!.contains(department),
                 onChanged: (bool? value) {
-                  print(value);
-
                   if (value!) {
-                    favoritedepartments.add(department);
-                    print(favoritedepartments.toString());
+                    setState(() {
+                      widget.favoritedepartments!.add(department);
+                    });
                   } else {
-                    favoritedepartments.remove(department);
+                    setState(() {
+                      widget.favoritedepartments!.remove(department);
+                    });
                   }
                 },
                 //value: _checked,
@@ -62,17 +65,7 @@ class EditFavoritesBottomSheet extends ConsumerWidget {
                     return;
                   }
                   if (currentState.validate()) {
-                    final updatedProfile = profile.copyWith(
-                      favoritedepartments: favoritedepartments,
-                    );
-                    print('updatedProfile.toString()');
-                    print(updatedProfile.toString());
-
-                    ref
-                        .read(profileControllerProvider)
-                        .updateUser(updatedProfile);
-
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pop(widget.favoritedepartments);
                   }
                 } //,
                 ),

@@ -1,6 +1,8 @@
 import 'package:amplify_marketplace/features/user/profile/controller/profile_controller.dart';
 import 'package:amplify_marketplace/features/user/profile/ui/edit_favorites_bottomsheet.dart';
-import 'package:amplify_marketplace/models/User.dart';
+
+import 'package:amplify_marketplace/models/ModelProvider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,17 +11,24 @@ class ProfilePage extends ConsumerWidget {
     super.key,
   });
 
-  void editProfile(BuildContext context, User profile) async {
-    await showModalBottomSheet<void>(
+  void editProfile(BuildContext context, WidgetRef ref, User profile) async {
+    var favoritedepartments =
+        await showModalBottomSheet<List<MarketPlaceDepartments>>(
       isScrollControlled: true,
       elevation: 5,
       context: context,
       builder: (BuildContext context) {
         return EditFavoritesBottomSheet(
-          profile: profile,
+          favoritedepartments: profile.favoritedepartments,
         );
       },
     );
+
+    final updatedProfile = profile.copyWith(
+      favoritedepartments: favoritedepartments,
+    );
+
+    ref.read(profileControllerProvider).updateUser(updatedProfile);
   }
 
   @override
@@ -63,7 +72,7 @@ class ProfilePage extends ConsumerWidget {
                       textStyle: const TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
-                      editProfile(context, profile);
+                      editProfile(context, ref, profile);
                     },
                     child: const Text('Favorites'),
                   ),
