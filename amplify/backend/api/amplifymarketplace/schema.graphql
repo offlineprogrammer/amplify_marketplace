@@ -9,6 +9,18 @@ type Orders @model @auth(rules: [
   
 }
 
+type Offers @model @auth(rules: [
+      {allow: public}
+       
+    ]) {
+  id: ID!
+  name: String!
+  description: String
+  department: MarketPlaceDepartment!
+  price: Float
+  
+}
+
 enum OrderStatus { New, Shipped, Delivered }
 
 type User @model @auth(rules: [
@@ -18,12 +30,10 @@ type User @model @auth(rules: [
   id: ID!
   email: String!
 
-  favoritedepartments: [MarketPlaceDepartments] 
+  favoritedepartments: [MarketPlaceDepartment] 
   owner: String! 
   updatedAt: AWSDateTime!
 }
 
 
-
-enum MarketPlaceDepartments { Clothing, Books, Electronics, Outdoors}
-
+enum MarketPlaceDepartment { Clothing, Books, Electronics, Outdoors}

@@ -31,7 +31,7 @@ class User extends Model {
   static const classType = const _UserModelType();
   final String id;
   final String? _email;
-  final List<MarketPlaceDepartments>? _favoritedepartments;
+  final List<MarketPlaceDepartment>? _favoritedepartments;
   final String? _owner;
   final TemporalDateTime? _updatedAt;
   final TemporalDateTime? _createdAt;
@@ -62,7 +62,7 @@ class User extends Model {
     }
   }
   
-  List<MarketPlaceDepartments>? get favoritedepartments {
+  List<MarketPlaceDepartment>? get favoritedepartments {
     return _favoritedepartments;
   }
   
@@ -98,11 +98,11 @@ class User extends Model {
   
   const User._internal({required this.id, required email, favoritedepartments, required owner, required updatedAt, createdAt}): _email = email, _favoritedepartments = favoritedepartments, _owner = owner, _updatedAt = updatedAt, _createdAt = createdAt;
   
-  factory User({String? id, required String email, List<MarketPlaceDepartments>? favoritedepartments, required String owner, required TemporalDateTime updatedAt}) {
+  factory User({String? id, required String email, List<MarketPlaceDepartment>? favoritedepartments, required String owner, required TemporalDateTime updatedAt}) {
     return User._internal(
       id: id == null ? UUID.getUUID() : id,
       email: email,
-      favoritedepartments: favoritedepartments != null ? List<MarketPlaceDepartments>.unmodifiable(favoritedepartments) : favoritedepartments,
+      favoritedepartments: favoritedepartments != null ? List<MarketPlaceDepartment>.unmodifiable(favoritedepartments) : favoritedepartments,
       owner: owner,
       updatedAt: updatedAt);
   }
@@ -141,7 +141,7 @@ class User extends Model {
     return buffer.toString();
   }
   
-  User copyWith({String? email, List<MarketPlaceDepartments>? favoritedepartments, String? owner, TemporalDateTime? updatedAt}) {
+  User copyWith({String? email, List<MarketPlaceDepartment>? favoritedepartments, String? owner, TemporalDateTime? updatedAt}) {
     return User._internal(
       id: id,
       email: email ?? this.email,
@@ -155,7 +155,7 @@ class User extends Model {
       _email = json['email'],
       _favoritedepartments = json['favoritedepartments'] is List
         ? (json['favoritedepartments'] as List)
-          .map((e) => enumFromString<MarketPlaceDepartments>(e, MarketPlaceDepartments.values)!)
+          .map((e) => enumFromString<MarketPlaceDepartment>(e, MarketPlaceDepartment.values)!)
           .toList()
         : null,
       _owner = json['owner'],

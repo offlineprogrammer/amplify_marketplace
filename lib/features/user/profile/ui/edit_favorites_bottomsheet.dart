@@ -7,7 +7,7 @@ class EditFavoritesBottomSheet extends StatefulWidget {
     super.key,
   });
 
-  final List<MarketPlaceDepartments>? favoritedepartments;
+  final List<MarketPlaceDepartment>? favoritedepartments;
 
   @override
   State<EditFavoritesBottomSheet> createState() =>
@@ -33,7 +33,7 @@ class _EditFavoritesBottomSheetState extends State<EditFavoritesBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            for (var department in MarketPlaceDepartments.values)
+            for (var department in MarketPlaceDepartment.values)
               CheckboxListTile(
                 title: Text(department.name),
 

@@ -14,7 +14,7 @@ class ProfilePage extends ConsumerWidget {
 
   void editProfile(BuildContext context, WidgetRef ref, User profile) async {
     var favoritedepartments =
-        await showModalBottomSheet<List<MarketPlaceDepartments>>(
+        await showModalBottomSheet<List<MarketPlaceDepartment>>(
       isScrollControlled: true,
       elevation: 5,
       context: context,
